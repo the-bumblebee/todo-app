@@ -2,11 +2,11 @@ function ToDoListItem({ id, task, onDelete }) {
 
     const handleDelete = () => onDelete(id);
     return (
-        <ul>
-            <input type="checkbox"></input>
+        <li>
+            <input type="checkbox" />
             <label>{task}</label>
             <button onClick={handleDelete}>Delete</button>
-        </ul>
+        </li>
     );
 }
 

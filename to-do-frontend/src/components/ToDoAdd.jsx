@@ -13,7 +13,7 @@ function ToDoAdd({ onAdd }) {
             onAdd(inputValue);
             setInputValue("");
         }
-        
+
     }
 
     const handleAdd = () => {
@@ -22,14 +22,17 @@ function ToDoAdd({ onAdd }) {
     }
 
     return (
-        <div>
+        <div className="input-group">
             <input
                 type="text"
                 value={inputValue}
                 placeholder="Enter Task"
                 onChange={handleInputValueChange}
                 onKeyDown={handleEnterPress} />
-            <button onClick={handleAdd}>Add Item</button>
+            <button
+                onClick={handleAdd}>
+                Add Item
+            </button>
         </div>
     );
 }

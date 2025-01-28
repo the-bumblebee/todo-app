@@ -12,6 +12,7 @@ function ToDo() {
     ])
 
     const addToDo = (task) => {
+        if (task === "") return;
         const newTodos = [...todos,
             {id: todos.length, task: task}
         ]
@@ -23,7 +24,7 @@ function ToDo() {
     }
 
     return ( 
-        <div>
+        <div className="container">
             <h1>To-Do List</h1>
             <ToDoAdd onAdd={addToDo} />
             <ToDoList todos={todos} deleteToDo={deleteToDo} />
