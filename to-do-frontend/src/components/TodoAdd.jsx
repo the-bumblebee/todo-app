@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ToDoAdd({ onAdd }) {
+function ToDoAdd({ addNewTodo }) {
 
     const [inputValue, setInputValue] = useState("");
 
@@ -10,29 +10,33 @@ function ToDoAdd({ onAdd }) {
 
     const handleEnterPress = e => {
         if (e.key === "Enter") {
-            onAdd(inputValue);
+            addNewTodo(inputValue);
             setInputValue("");
         }
 
     }
 
     const handleAdd = () => {
-        onAdd(inputValue);
+        addNewTodo(inputValue);
         setInputValue("");
     }
 
     return (
-        <div className="input-group">
+        <div className="input-group input-group-prepend my-2">
             <input
+                className="form-control"
                 type="text"
                 value={inputValue}
                 placeholder="Enter Task"
                 onChange={handleInputValueChange}
                 onKeyDown={handleEnterPress} />
-            <button
-                onClick={handleAdd}>
-                Add Item
-            </button>
+            <div className="input-group-append">
+                <button
+                    className="btn btn-outline-primary"
+                    onClick={handleAdd}>
+                    Add Item
+                </button>
+            </div>
         </div>
     );
 }

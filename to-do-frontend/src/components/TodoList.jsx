@@ -1,6 +1,6 @@
-import ToDoListItem from "./ToDoListItem";
+import ToDoListItem from "./TodoListItem";
 
-function ToDoList({ todos, deleteToDo }) {
+function ToDoList({ todos, deleteTodo, toggleTodo }) {
 
     return (
         <ul className="list-group">
@@ -8,7 +8,9 @@ function ToDoList({ todos, deleteToDo }) {
                 <ToDoListItem
                     id={todo.id}
                     task={todo.task}
-                    onDelete={deleteToDo} />
+                    completed={todo.completed}
+                    toggleTodo={toggleTodo}
+                    deleteTodo={deleteTodo} />
             ))}
         </ul>
     );
