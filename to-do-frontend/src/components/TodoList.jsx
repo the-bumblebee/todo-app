@@ -6,6 +6,7 @@ function ToDoList({ todos, deleteTodo, toggleTodo }) {
         <ul className="list-group">
             {todos.map(todo => (
                 <ToDoListItem
+                    key={todo.id}
                     id={todo.id}
                     task={todo.task}
                     completed={todo.completed}

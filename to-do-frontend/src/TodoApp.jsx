@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToDoAdd from "./components/TodoAdd";
 import ToDoList from "./components/TodoList";
+import { createTodo, getTodos } from "./services/api";
 
 function TodoApp() {
 
-    const [todos, setTodos] = useState([
-        { id: 0, task: "Do Project", completed: false },
-        { id: 1, task: "Push to Git", completed: false },
-        { id: 2, task: "Stylize", completed: false },
-        { id: 3, task: "Refactor", completed: true },
-    ])
+    const [todos, setTodos] = useState([]);
 
-    const addNewTodo = (task) => {
+    useEffect(() => {
+        async function fetchTodos() {
+            const todos = await getTodos();
+            setTodos(todos);
+        }
+        fetchTodos();
+    }, [])
+
+    const addNewTodo = async (task) => {
         if (task === "") return;
-        const newTodos = [...todos,
-        { id: todos.length, task: task, completed: false }
-        ]
-        setTodos(newTodos);
+        const newTodo = await createTodo({ task });
+        if (newTodo) {
+            setTodos([...todos, newTodo]);
+        }
     }
 
     const toggleTodo = (id) => {
