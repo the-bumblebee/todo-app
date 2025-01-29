@@ -1,38 +1,40 @@
 import { useEffect, useState } from "react";
 import ToDoAdd from "./components/TodoAdd";
 import ToDoList from "./components/TodoList";
-import { createTodo, getTodos } from "./services/api";
+import {  createTodoApi, deleteTodoApi, getTodosApi, updateTodoStateApi } from "./services/api";
 
 function TodoApp() {
 
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
-        async function fetchTodos() {
-            const todos = await getTodos();
-            setTodos(todos);
-        }
         fetchTodos();
     }, [])
 
+    const fetchTodos = async () => {
+        const todos = await getTodosApi();
+        setTodos(todos);
+    };
+
     const addNewTodo = async (task) => {
         if (task === "") return;
-        const newTodo = await createTodo({ task });
+        const newTodo = await createTodoApi({ task });
         if (newTodo) {
             setTodos([...todos, newTodo]);
         }
-    }
+    };
 
-    const toggleTodo = (id) => {
-        setTodos(
-            todos.map(todo => todo.id === id ?
-                { ...todo, completed: !todo.completed } : todo)
-        );
-    }
+    const toggleTodo = async (id) => {
+        const updatedTodo = todos.find(todo => todo.id === id);
+        updatedTodo.completed = !updatedTodo.completed;
+        const responseTodo = await updateTodoStateApi(id, updatedTodo);
+        await fetchTodos();
+    };
 
-    const deleteTodo = (id) => {
+    const deleteTodo = async (id) => {
+        await deleteTodoApi(id);
         setTodos(todos.filter(todo => todo.id !== id));
-    }
+    };
 
     return (
         <div className="bg-white vh-100" >
