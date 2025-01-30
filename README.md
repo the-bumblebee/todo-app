@@ -22,7 +22,7 @@ $ cd to-do-frontend
 $ npm start
 ```
 
-- The UI will be available at [http://localhost:3000]
+- The UI will be available at [http://localhost:3000](http://localhost:3000)
 
 ## To Do
 - [x] Migrate to Typescript
