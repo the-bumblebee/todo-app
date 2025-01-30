@@ -1,6 +1,14 @@
+import React from "react";
 import ToDoListItem from "./TodoListItem";
+import { Todo } from "../types/Todo";
 
-function ToDoList({ todos, deleteTodo, toggleTodo }) {
+interface TodoListProps {
+    todos: Todo[],
+    deleteTodo(id: number): void,
+    toggleTodo(id: number): void,
+}
+
+const ToDoList: React.FC<TodoListProps> = ({ todos, deleteTodo, toggleTodo }) => {
 
     return (
         <ul className="list-group">

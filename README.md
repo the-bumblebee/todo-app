@@ -23,3 +23,7 @@ $ npm start
 ```
 
 - The UI will be available at [http://localhost:3000]
+
+## To Do
+- [x] Migrate to Typescript
+- [ ] Refactor code -- multiple copies of method signature across components

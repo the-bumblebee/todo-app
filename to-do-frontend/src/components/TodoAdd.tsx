@@ -1,22 +1,25 @@
-import { useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, KeyboardEvent, KeyboardEventHandler, MouseEventHandler, useState } from "react";
 
-function ToDoAdd({ addNewTodo }) {
+interface TodoAddProps {
+    addNewTodo(task: string): void,
+}
 
-    const [inputValue, setInputValue] = useState("");
+const ToDoAdd: React.FC<TodoAddProps> = ({ addNewTodo }) => {
 
-    const handleInputValueChange = e => {
+    const [inputValue, setInputValue] = useState<string>("");
+
+    const handleInputValueChange: ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     }
 
-    const handleEnterPress = e => {
+    const handleEnterPress: KeyboardEventHandler<HTMLInputElement> = (e: KeyboardEvent) => {
         if (e.key === "Enter") {
             addNewTodo(inputValue);
             setInputValue("");
         }
-
     }
 
-    const handleAdd = () => {
+    const handleAdd: MouseEventHandler<HTMLButtonElement> = () => {
         addNewTodo(inputValue);
         setInputValue("");
     }

@@ -1,8 +1,10 @@
 import axios from "axios";
+import { Todo } from "../types/Todo";
+import { NewTodo } from "../types/NewTodo";
 
 const API_BASE_URL = "http://localhost:8080/api/todos"
 
-export const getTodosApi = async () => {
+export const getTodosApi = async (): Promise<Todo[]> => {
     try {
         const respone = await axios.get(API_BASE_URL);
         return respone.data;
@@ -12,9 +14,9 @@ export const getTodosApi = async () => {
     }
 }
 
-export const createTodoApi = async (todo) => {
+export const createTodoApi = async (newTodo: NewTodo): Promise<Todo | null> => {
     try {
-        const response = await axios.post(API_BASE_URL, todo);
+        const response = await axios.post(API_BASE_URL, newTodo);
         return response.data;
     } catch (error) {
         console.error("Error saving todo: ", error);
@@ -22,7 +24,7 @@ export const createTodoApi = async (todo) => {
     }
 }
 
-export const updateTodoStateApi = async (id, updatedTodo) => {
+export const updateTodoStateApi = async (id: number, updatedTodo: Todo): Promise<Todo | null> => {
     try {
         const response = await axios.put(API_BASE_URL + `/${id}`, updatedTodo);
         return response.data;
@@ -32,7 +34,7 @@ export const updateTodoStateApi = async (id, updatedTodo) => {
     }
 }
 
-export const deleteTodoApi = async (id) => {
+export const deleteTodoApi = async (id: number): Promise<String> => {
     try {
         const response = await axios.delete(API_BASE_URL + `/${id}`);
         return response.data;

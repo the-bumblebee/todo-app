@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import ToDoAdd from "./components/TodoAdd";
 import ToDoList from "./components/TodoList";
 import {  createTodoApi, deleteTodoApi, getTodosApi, updateTodoStateApi } from "./services/api";
+import { Todo } from "./types/Todo";
+import React from 'react';
+
 
 function TodoApp() {
 
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState<Todo[]>([]);
 
     useEffect(() => {
         fetchTodos();
@@ -16,7 +19,7 @@ function TodoApp() {
         setTodos(todos);
     };
 
-    const addNewTodo = async (task) => {
+    const addNewTodo = async (task: string) => {
         if (task === "") return;
         const newTodo = await createTodoApi({ task });
         if (newTodo) {
@@ -24,14 +27,16 @@ function TodoApp() {
         }
     };
 
-    const toggleTodo = async (id) => {
-        const updatedTodo = todos.find(todo => todo.id === id);
+    const toggleTodo = async (id: number) => {
+        const updatedTodo: Todo | undefined = todos.find(todo => todo.id === id);
+        if (!updatedTodo)
+            return;
         updatedTodo.completed = !updatedTodo.completed;
-        const responseTodo = await updateTodoStateApi(id, updatedTodo);
+        const responseTodo: Todo | null = await updateTodoStateApi(id, updatedTodo);
         await fetchTodos();
     };
 
-    const deleteTodo = async (id) => {
+    const deleteTodo = async (id: number) => {
         await deleteTodoApi(id);
         setTodos(todos.filter(todo => todo.id !== id));
     };
